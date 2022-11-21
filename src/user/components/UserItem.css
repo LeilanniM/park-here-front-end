@@ -1,0 +1,9 @@
+.userItem {
+    border: solid 1px black;
+}
+
+.avatarImg {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
