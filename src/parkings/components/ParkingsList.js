@@ -1,4 +1,6 @@
 import React from "react";
+
+import "./ParkingsList.css";
 import ParkingItem from "./ParkingItem";
 
 const ParkingsList = (props) => {

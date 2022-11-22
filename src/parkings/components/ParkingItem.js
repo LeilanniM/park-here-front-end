@@ -1,4 +1,6 @@
 import React from "react";
+
+import "./ParkingItem.css";
 import { Link } from "react-router-dom";
 import Map from "../../shared/components/Map";
 

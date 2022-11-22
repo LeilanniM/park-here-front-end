@@ -1,5 +1,5 @@
-.parkings-list {
+.nav-bar {
   display: flex;
-  flex-flow: wrap;
   justify-content: center;
+  align-items: center;
 }

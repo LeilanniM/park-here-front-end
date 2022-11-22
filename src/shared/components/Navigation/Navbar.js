@@ -1,9 +1,11 @@
 import React from "react";
+import "./Navbar.css";
+
 import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <div>
+    <div className="nav-bar">
       <h1>🅿️ARK-HERE</h1>
       <li>
         <NavLink to={`/`} exact>
