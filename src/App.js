@@ -23,7 +23,11 @@ function App() {
             render={() => <HostParkings />}
           />
           <Route path="/parkings/new" exact render={() => <NewParking />} />
-          <Route path="/parkings/:id" exact render={() => <Parking />} />
+          <Route
+            path="/parkings/:id"
+            exact
+            render={(routeProps) => <Parking routeProps={routeProps} />}
+          />
           <Redirect to="/" />
         </Switch>
       </main>
