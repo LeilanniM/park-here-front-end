@@ -14,21 +14,20 @@ const Parking = (props) => {
         console.log(res.data);
         setParking(res.data);
       })
-      .then((prk) => {
-        console.group(prk);
+      .catch((err) => {
+        console.log(err);
       });
   }, []);
 
-  // if (props.routeProps && parking) {
-  //   return (
-  //     <div>
-  //       <Map center={parking.location} zoom={8} />
-  //     </div>
-  //   );
-  // } else {
-  //   return <h2>loading...</h2>;
-  // }
-  return <h2>potatoes</h2>;
+  if (props.routeProps && parking) {
+    return (
+      <div>
+        <Map center={parking.location} zoom={8} />
+      </div>
+    );
+  } else {
+    return <h2>loading...</h2>;
+  }
 };
 
 export default Parking;
