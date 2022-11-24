@@ -1,0 +1,8 @@
+.parking-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.parking-form > label {
+  margin-top: 20px;
+}
