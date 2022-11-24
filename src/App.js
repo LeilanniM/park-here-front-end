@@ -3,6 +3,7 @@ import "./App.css";
 import HostParkings from "./parkings/pages/HostParkings";
 import NewParking from "./parkings/pages/NewParking";
 import Parking from "./parkings/pages/Parking";
+import UpdateParking from "./parkings/pages/UpdateParking";
 import Navbar from "./shared/components/Navigation/Navbar";
 import Users from "./user/pages/Users";
 
@@ -24,9 +25,14 @@ function App() {
           />
           <Route path="/parkings/new" exact render={() => <NewParking />} />
           <Route
-            path="/parkings/:id"
+            path="/parkings/:parkingId"
             exact
             render={(routeProps) => <Parking routeProps={routeProps} />}
+          />
+          <Route
+            path="/:userId/parkings/:parkingId"
+            exact
+            render={(routeProps) => <UpdateParking routeProps={routeProps} />}
           />
           <Redirect to="/" />
         </Switch>

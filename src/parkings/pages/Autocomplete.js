@@ -33,7 +33,7 @@ const Autocomplete = (props) => {
     <div className="autocomplete">
       <label>Address :</label>
       <input
-        // value={props.address}
+        defaultValue={props.address ? props.address : ""}
         // onChange={(e) => props.onChangeHandler(e, props.setAddress)}
         ref={inputRef}
       />

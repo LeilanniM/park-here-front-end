@@ -25,6 +25,7 @@ const NewParking = () => {
     e.preventDefault();
     console.log("submitting form...");
     //tack on the userId in here so you don't have to make an invisible input.
+    //Send this to POST http://localhost:8080/parkings/
   };
 
   return (
