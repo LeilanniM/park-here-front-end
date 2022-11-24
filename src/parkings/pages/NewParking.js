@@ -111,9 +111,6 @@ const NewParking = () => {
         initialState="https://i.ibb.co/2dtXpf2/blank-avatar.webp"
       /> */}
       <button type="submit">ADD PARKING!</button>
-      <a href="https://maps.google.com/maps/contrib/113574157505706666598">
-        Chet Hammack Jr
-      </a>
     </form>
   );
 };

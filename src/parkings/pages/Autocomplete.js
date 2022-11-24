@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import "./Autocomplete.css";
 
 const Autocomplete = (props) => {
   //   const [address, setAddress] = useState(() => "");
@@ -29,8 +30,8 @@ const Autocomplete = (props) => {
     });
   }, []);
   return (
-    <div>
-      <label>enter address :</label>
+    <div className="autocomplete">
+      <label>Address :</label>
       <input
         // value={props.address}
         // onChange={(e) => props.onChangeHandler(e, props.setAddress)}
