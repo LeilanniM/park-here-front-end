@@ -1,0 +1,34 @@
+.booking-form {
+  display: flex;
+  width: 802px;
+  margin-bottom: 40px;
+}
+
+.booking-form-time {
+  display: flex;
+  margin-right: 20px;
+}
+
+.booking-form-time-checkin {
+  margin-right: 5px;
+}
+
+.booking-form-time-checkout {
+  margin-left: 5px;
+}
+
+.book-this-spot {
+  text-align: center;
+}
+
+.book-button {
+  height: 50px;
+  align-self: center;
+  background: #ff0002a6;
+  color: antiquewhite;
+  /* font-weight: 900; */
+  font-size: x-large;
+  border-radius: 10px;
+  box-shadow: black, 0, 0;
+  box-shadow: 4px 3px 0px 1px #c29cda;
+}

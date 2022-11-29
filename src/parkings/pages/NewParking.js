@@ -1,16 +1,18 @@
-import React, { useState } from "react";
-import ImageUpload from "../../shared/components/ImageUpload.component";
-import Autocomplete from "react-google-autocomplete";
+import React, { useContext, useState } from "react";
+
 import PlacesAutoComplete from "./Autocomplete";
-import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 
 import "./NewParking.css";
+import { AuthContext } from "../../shared/context/auth-context";
+import { useHistory } from "react-router-dom";
 
 const NewParking = () => {
+  const auth = useContext(AuthContext);
   const [title, setTitle] = useState(() => "");
   const [description, setDesc] = useState(() => "");
   const [spaces, setSpaces] = useState(() => "");
-  const [isIndoor, setIsIndoor] = useState(() => "");
+  const [pricePerHour, setPricePerHour] = useState(() => "");
+  const [isIndoor, setIsIndoor] = useState(() => false);
   const [isCovered, setIsCovered] = useState(() => false);
   const [address, setAddress] = useState(() => "");
   const [terrain, setTerrain] = useState(() => "");
@@ -24,9 +26,45 @@ const NewParking = () => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
     console.log("submitting form...");
-    //tack on the userId in here so you don't have to make an invisible input.
-    //Send this to POST http://localhost:8080/parkings/
-  };
+
+    const newParking = {
+      title,
+      description,
+      spaces,
+      isIndoor,
+      isCovered,
+      address,
+      terrain,
+      extraFeatures,
+      pricePerHour,
+    };
+    console.log(newParking);
+    const options = {
+      method: "POST",
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${auth.token}`,
+      },
+      body: JSON.stringify(newParking),
+    };
+
+    fetch(`http://localhost:8080/parkings/`, options)
+      .then((res) => {
+        if (!res.ok) {
+          return console.error("Error creating a place");
+        }
+        res.json().then((data) => {
+          console.log(data);
+          history.push(`/parking/images/${data._id}`);
+        });
+      })
+      .catch((err) => {
+        return console.error(err);
+      });
+  }; //end of submit handler
+
+  const history = useHistory();
 
   return (
     <form onSubmit={onSubmitHandler} className="parking-form">
@@ -42,15 +80,7 @@ const NewParking = () => {
         minLength={2}
       />
       <PlacesAutoComplete setAddress={setAddress} address={address} />
-      {/* <GooglePlacesAutocomplete apiKey="AIzaSyBLe6i3IQNXBXa_BftIiir_rIWpRNm2m-c" /> */}
-      <div>
-        {/* <Autocomplete
-          apiKey="AIzaSyBLe6i3IQNXBXa_BftIiir_rIWpRNm2m-c"
-          onPlaceSelected={(place) => {
-            console.log(place);
-          }}
-        /> */}
-      </div>
+
       <label htmlFor="parking-form-spaces">Number of Spaces:</label>
       <input
         id="parking-form-spaces"
@@ -58,6 +88,15 @@ const NewParking = () => {
         min="1"
         onChange={(e) => onChangeHandler(e, setSpaces)}
         value={spaces}
+        required
+      />
+      <label htmlFor="parking-form-pricePerHour">Hourly Rate:</label>
+      <input
+        id="parking-form-pricePerHour"
+        type="number"
+        min="0"
+        onChange={(e) => onChangeHandler(e, setPricePerHour)}
+        value={pricePerHour}
         required
       />
       <label htmlFor="parking-form-covered">Covered Parking?:</label>
@@ -105,12 +144,6 @@ const NewParking = () => {
         required
       />
 
-      {/* <ImageUpload
-        center
-        id="image"
-        onInput={() => console.log("potatoe")}
-        initialState="https://i.ibb.co/2dtXpf2/blank-avatar.webp"
-      /> */}
       <button type="submit">ADD PARKING!</button>
     </form>
   );

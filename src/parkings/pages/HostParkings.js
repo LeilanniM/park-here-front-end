@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ParkingsList from "../components/ParkingsList";
 
@@ -60,15 +60,31 @@ const DUMMY_PARKINGS = [
 ];
 
 const HostParkings = () => {
+  const [parkings, setParkings] = useState(() => null);
   const userId = useParams().userId; //accessing the Route prop. can also do this another way using routeProps in the <Route/> render
+
+  useEffect(() => {
+    fetch(`http://localhost:8080/parkings/user/${userId}/`).then((res) => {
+      if (!res.ok) {
+        console.error("could not fetch parkings. :O");
+        return;
+      }
+      return res.json().then((parkings) => {
+        console.log(parkings);
+        setParkings(parkings);
+      });
+    });
+  }, []);
+
   return (
     <div>
-      <h2>Host Parkings</h2>
-      <ParkingsList
-        parkingItems={DUMMY_PARKINGS.filter(
-          (parking) => parking.host.id === userId
-        )}
-      />
+      {parkings ? (
+        <>
+          <h2>Host Parkings</h2> <ParkingsList parkingItems={parkings} />
+        </>
+      ) : (
+        <h2>Loading...</h2>
+      )}
     </div>
   );
 };

@@ -1,5 +1,18 @@
 .nav-bar {
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
+  width: 100%;
   align-items: center;
+  margin-top: 50px;
+}
+
+.nav-bar-h1 {
+  margin-left: 287px;
+  width: -webkit-fill-available;
+}
+
+.nav-bar-links {
+  display: flex;
+  justify-content: space-evenly;
+  width: inherit;
 }

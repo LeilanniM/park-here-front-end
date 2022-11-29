@@ -1,9 +1,38 @@
+.parking-page {
+  padding-left: 400px;
+  padding-right: 400px;
+}
+
+.parking-page-gallery {
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.273);
+  border-radius: 15px;
+}
+
 .parking-gallery-image {
   width: 80%;
-  height: auto;
+  height: 590px;
 }
 
 .parking-title {
   font-size: 26px;
   font-weight: 600;
+}
+
+.host-image {
+  width: 30px;
+  height: 30px;
+  border-radius: 30px;
+}
+
+.parking-page-info {
+  display: flex;
+}
+
+.parking-page-info-list {
+  width: 40%;
+}
+
+.parking-page-info-description {
+  width: 60%;
 }

@@ -6,7 +6,9 @@ const UserItem = (props) => {
   return (
     <li className="userItem">
       <Link to={`/${props.id}/parkings`}>
-        <h3>{props.name}</h3>
+        <h3>
+          {props.firstName} {props.lastName}
+        </h3>
         <img className="avatarImg" src={props.image} />
       </Link>
     </li>

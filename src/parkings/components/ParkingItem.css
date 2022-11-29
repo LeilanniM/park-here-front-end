@@ -1,12 +1,44 @@
 .parking-item {
-  width: 25%;
-  height: auto;
-  min-width: 230px;
+  width: 302px;
+  height: 387px;
+  /* min-width: 230px; */
   padding-left: 20px;
-  padding-right: 10px;
+  padding-right: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .parking-item img {
   width: 100%;
-  height: auto;
+  height: 285px;
+  border-radius: 15px;
+  margin-bottom: 12px;
+}
+
+.parking-item-infobox {
+  display: flex;
+  flex-direction: column;
+  font-size: 15px;
+}
+
+.parking-item-infobox * {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.parking-item-title {
+  font-style: italic;
+  color: #717171;
+}
+
+.parking-item-address {
+  font-weight: 500;
+}
+
+.parking-item-rate {
+  margin-top: 10px;
+}
+
+.dollar {
+  font-weight: 500;
 }

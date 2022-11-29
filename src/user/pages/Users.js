@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import UsersList from "../components/UsersList";
 
 const Users = () => {
+  const [loadedUsers, setLoadedUsers] = useState(() => null);
   const USERS = [
     {
       id: "63683ccb3ff57910b60edc36",
@@ -14,10 +15,23 @@ const Users = () => {
       image: "https://i.ibb.co/2dtXpf2/blank-avatar.webp",
     },
   ];
+
+  useEffect(() => {
+    fetch(`http://localhost:8080/users/`).then((res) => {
+      if (!res.ok) {
+        console.error("could not fetch users. :O");
+        return;
+      }
+      return res.json().then((users) => {
+        console.log(users);
+        setLoadedUsers(users);
+      });
+    });
+  }, []);
+
   return (
     <div>
-      Users Page Works!
-      <UsersList users={USERS} />
+      {loadedUsers ? <UsersList users={loadedUsers} /> : <h2>Loading...</h2>}
     </div>
   );
 };

@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
+import { AuthContext } from "../../shared/context/auth-context";
 import Autocomplete from "./Autocomplete";
 
 //Comeback and fix with authentication...⛏
@@ -12,40 +13,42 @@ const UpdateParking = () => {
   const [address, setAddress] = useState(() => "");
   const [terrain, setTerrain] = useState(() => "");
   const [extraFeatures, setExtraFeatures] = useState(() => "");
+  const [pricePerHour, setPricePerHour] = useState(() => "");
 
   const { parkingId, userId } = useParams();
+  const auth = useContext(AuthContext);
+  const history = useHistory();
   console.log(parkingId, userId);
 
   useEffect(() => {
     //fetch the parking using the parkingId. We don't have to validate since the backend automatically checks the cookie for us.
     //after fectching, we set the state with the current parking data which will fill it up for us. Meet MVP by not worrying about deleting images, only adding them right now is ok.
-    fetch("http://localhost:8080/parkings/63687304b2af24247b6374c7").then(
-      (res) => {
-        res.json().then((prk) => {
-          console.log(prk);
-          const {
-            address,
-            covered,
-            description,
-            extraFeatures,
-            indoor,
-            pricePerHour,
-            spaces,
-            terrain,
-            title,
-          } = prk;
+    fetch(`http://localhost:8080/parkings/${parkingId}`).then((res) => {
+      res.json().then((prk) => {
+        console.log(prk);
+        const {
+          address,
+          covered,
+          description,
+          extraFeatures,
+          indoor,
+          pricePerHour,
+          spaces,
+          terrain,
+          title,
+        } = prk;
 
-          setTitle(title);
-          setAddress(address);
-          setDesc(description);
-          setIsCovered(covered);
-          setIsIndoor(indoor);
-          setSpaces(spaces);
-          setTerrain(terrain);
-          setExtraFeatures(extraFeatures);
-        });
-      }
-    );
+        setTitle(title);
+        setAddress(address);
+        setDesc(description);
+        setIsCovered(covered);
+        setIsIndoor(indoor);
+        setSpaces(spaces);
+        setTerrain(terrain);
+        setExtraFeatures(extraFeatures);
+        setPricePerHour(pricePerHour);
+      });
+    });
   }, []);
 
   const onChangeHandler = (e, setValue) => {
@@ -58,6 +61,31 @@ const UpdateParking = () => {
     console.log("submitting update form...");
     //tack on the userId in here so you don't have to make an invisible input.
     //Send this to patch http://localhost:8080/parkings/123
+    const updatedParking = JSON.stringify({
+      title,
+      description,
+      spaces,
+      isIndoor,
+      isCovered,
+      address,
+      terrain,
+      extraFeatures,
+      pricePerHour,
+      host: auth.userId,
+    });
+    const options = {
+      method: "PATCH",
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${auth.token}`,
+      },
+      body: updatedParking,
+    };
+
+    fetch(`http://localhost:8080/parkings/${parkingId}`, options).then(() => {
+      history.push("/");
+    });
   };
 
   return (
@@ -120,6 +148,13 @@ const UpdateParking = () => {
         onChange={(e) => onChangeHandler(e, setTerrain)}
         value={terrain}
       />
+      <label htmlFor="parking-form-pricePerHour">Price per hour:</label>
+      <input
+        id="parking-form-pricePerHour"
+        type="text"
+        onChange={(e) => onChangeHandler(e, setPricePerHour)}
+        value={pricePerHour}
+      />
       <label htmlFor="parking-form-extraFeatures">
         ⭐️Extra Features/Notes:
       </label>
@@ -138,7 +173,7 @@ const UpdateParking = () => {
         initialState="https://i.ibb.co/2dtXpf2/blank-avatar.webp"
       /> */}
       <button type="submit">SAVE</button>
-      <button type="submit">CANCEL</button>
+      <button type="button">CANCEL</button>
       <button
         style={{ marginTop: "30px", background: "#f09494" }}
         type="button"
