@@ -10,11 +10,14 @@ import ImageUpload from "./shared/components/ImageUpload.component";
 import Navbar from "./shared/components/Navigation/Navbar";
 import { AuthContext } from "./shared/context/auth-context";
 import Auth from "./user/pages/Auth";
+import Booking from "./user/pages/Booking";
+import User from "./user/pages/User";
 import Users from "./user/pages/Users";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(() => false);
-  const [userId, setUserId] = useState(() => false);
+  const [userId, setUserId] = useState(() => null);
+  const [userData, setUserData] = useState(() => null);
   const [tokenState, setTokenState] = useState(() => null);
 
   useEffect(() => {
@@ -24,21 +27,24 @@ const App = () => {
       setTokenState(local.token);
       setIsLoggedIn(true);
       setUserId(local.userId);
+      setUserData(local.userData);
     }
   }, []);
 
   const history = useHistory();
 
   const login = useCallback(
-    (userId, token, tokenExpirationDate, firstTime = false) => {
+    (userId, token, tokenExpirationDate, firstTime = false, userData) => {
       setTokenState(token);
       setIsLoggedIn(true);
       setUserId(userId);
+      setUserData(userData);
       localStorage.setItem(
         "userData",
         JSON.stringify({
           userId,
           token,
+          userData,
         })
       );
       if (firstTime) {
@@ -73,6 +79,7 @@ const App = () => {
             />
           )}
         />
+        <Route exact path="/mydash" render={() => <User user={userData} />} />
         <Route
           path="/parking/images/:parkingId"
           exact
@@ -81,6 +88,11 @@ const App = () => {
           )}
         />
         <Route path="/:userId/parkings" exact render={() => <HostParkings />} />
+        <Route
+          path="/bookings/:bookingId"
+          exact
+          render={(routeProps) => <Booking routeProps={routeProps} />}
+        />
         <Route path="/parkings/" exact render={() => <Parkings />} />
         <Route
           path="/:userId/parkings/new"
@@ -105,6 +117,7 @@ const App = () => {
       <Switch>
         <Route path="/" exact render={() => <Parkings />} />
         <Route path="/users" exact render={() => <Users />} />
+
         <Route path="/parkings/" exact render={() => <Parkings />} />
         <Route
           path="/parkings/:parkingId"

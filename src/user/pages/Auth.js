@@ -41,7 +41,7 @@ const Auth = () => {
           res.json().then((data) => {
             console.log(data);
 
-            auth.login(data.id, data.token); //calling the cloud function that sets App.js's userId state and tokenState AND sets the token inside of localStorage
+            auth.login(data.id, data.token, null, false, data); //calling the cloud function that sets App.js's userId state and tokenState AND sets the token inside of localStorage
           });
         })
         .catch((err) => {
@@ -72,7 +72,7 @@ const Auth = () => {
           console.log(res);
           res.json().then((data) => {
             console.log(data);
-            auth.login(data.id, data.token, null, true); //calling the cloud function that sets isLoggedIn to true
+            auth.login(data.id, data.token, null, true, data); //calling the cloud function that sets isLoggedIn to true
           });
         })
         .catch((err) => {

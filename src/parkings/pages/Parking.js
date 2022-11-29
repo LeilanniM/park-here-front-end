@@ -3,12 +3,13 @@ import "./Parking.css";
 import Map from "../../shared/components/Map";
 import axios from "axios";
 import { AuthContext } from "../../shared/context/auth-context";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import Newbooking from "../../bookings/pages/NewBooking";
 
 const Parking = (props) => {
   const [parking, setParking] = useState();
   const auth = useContext(AuthContext); //importing cloudstate auth
+  const history = useHistory();
 
   useEffect(() => {
     console.log(props);
@@ -28,6 +29,25 @@ const Parking = (props) => {
 
   const onDeleteHandler = () => {
     console.log("opening warning modal and deleting...");
+    const options = {
+      method: "DELETE",
+      withCredentials: true,
+      headers: {
+        Authorization: `Bearer ${auth.token}`,
+      },
+    };
+
+    fetch(`http://localhost:8080/parkings/${parking.id}`, options)
+      .then((res) => {
+        if (!res.ok) {
+          return console.error("Error creating a place");
+        }
+
+        history.push(`/mydash`);
+      })
+      .catch((err) => {
+        return console.error(err);
+      });
     //render a warning modal where you will simply send a fetch req to DELETE parkings/id
   };
 
@@ -81,7 +101,7 @@ const Parking = (props) => {
           </h5>
           <hr />
 
-          <p className="parking-page-info">
+          <div className="parking-page-info">
             <div className="parking-page-info-list">
               <p>🚘spaces: {parking.spaces}</p>
               <p>🏝terrain: {parking.terrain}</p>
@@ -95,7 +115,7 @@ const Parking = (props) => {
             <div className="parking-page-info-description">
               🅿️ About the Spot: {parking.description}
             </div>
-          </p>
+          </div>
         </div>
 
         <Newbooking

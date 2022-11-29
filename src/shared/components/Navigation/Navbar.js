@@ -33,14 +33,10 @@ const Navbar = () => {
         )}
         {auth.isLoggedIn && (
           <li>
-            <NavLink to={`/myParkings`}>My Parkings</NavLink>
+            <NavLink to={`/mydash`}>My Dash</NavLink>
           </li>
         )}
-        {auth.isLoggedIn && (
-          <li>
-            <NavLink to={`/myBookings`}>My Bookings</NavLink>
-          </li>
-        )}
+
         {auth.isLoggedIn && (
           <li>
             <button onClick={() => auth.logout()}>LOGOUT ⍈</button>
