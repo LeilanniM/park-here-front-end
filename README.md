@@ -1,70 +1,40 @@
-# Getting Started with Create React App
+# Park-Here.com
+Always find a spot to park your car and/or host your parking spot for some extra cash.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### User story
+Created an app that helps people with the increasingly difficult parking situation in main cities where events such as fairs, coachella, concerts make finding parking near impossible or very expensive. With the app, locals can rent out their parking spaces such as driveways, dirt lots, etc for a fair price.
 
-## Available Scripts
+* As a user, I want to create an account.
+* As a user, I want to login.
+* As a user, I want to logout.
+* As a user, I want to create a parking space to host.
+* As a user, I want to book a parking space.
+* As a user, I want to view available parking spaces.
+* As a user, I want to add/delete parking spaces hosted by me.
 
-In the project directory, you can run:
+### Approach taken
+For the backend, I created three models to handle the user, parking and booking information. Each model referencing the other through their Ids. Each model has all basic RESTful routes and full CRUD.
+For Authentication I used JSONWebTokens and he browser's local storage.
 
-### `npm start`
+### Technology used
+* express
+* mongodb
+* cors
+* react
+* axios
+* bcrypt
+* Google maps API 
+* Google places autocomplete API
+* Imagebb API
+* mongoose 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Features to be added in the future
+* Payment processing 
+* Chat to communicate with host.
+* Insurance implementation.
+* Filtering/sorting
+* Ability to use user's location to suggest near by places.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Home Page
+![Screen Shot 2022-11-01 at 7 27 44 PM](https://user-images.githubusercontent.com/105605004/204665223-0e57fa3c-6a9e-4f4c-b1c8-81b3e426f780.png)
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
